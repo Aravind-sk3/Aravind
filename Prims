@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 15
+int n,cost[max][max];
+void main()
+{
+	int visited[max]={0},i,j,min,totmincost=0,a,b;
+	int ne=1;
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+		{
+			scanf("%d",&cost[i][j]);
+			if(cost[i][j]==0)
+				cost[i][j]=999;
+		}
+	}
+	visited[1]=1;
+	while(ne<n)
+	{
+		min=999;
+		for(i=1;i<=n;i++)
+		{
+			if(visited[i])
+			{
+				for(j=1;j<=n;j++)
+				{
+					if(cost[i][j]<min)
+					{
+					min=cost[i][j];
+					a=i;
+					b=j;
+					}
+				}
+			}
+		}
+		if(visited[b]==0)
+		{
+			printf("edge  (%d,  %d) cost  %d\n",a,b,min);
+			totmincost+=min;
+			visited[b]=1;
+		}
+		cost[a][b]=cost[b][a]=999;
+		ne++;
+	}
+	printf("minimum cost %d\n",totmincost);
+}
+
